@@ -1,0 +1,41 @@
+data_config:
+    golden:
+        tax_data_path: /app/test_data/hf_tax.csv      
+        wangchan_data_path: /app/test_data/hf_wcx.csv 
+        node_path: /app/LRG/chunking/golden/nodes.json
+      
+retriever_config:
+    human-finetuned-bge-m3:
+          model_name: wangchan-rerank-multi
+          k: 10 #Default
+      
+augmenter_config:
+    no-ref:
+          reference: False #Default        
+      
+llm_config:      
+    gemini-2.5-pro:
+          model: gemini-2.5-pro
+          generation_config:
+              max_output_tokens: 8192
+              temperature: 0.5
+              candidate_count: 1
+              response_mime_type: "application/json"
+          long_context: False
+    gpt-5:
+        model: gpt-5
+        max_completion_tokens: 8192
+        temperature: 1.0
+    claude-4.1-opus:
+        model: claude-opus-4-1-20250805
+        max_tokens: 8192
+        temperature: 0.5
+    # grok-4:
+    #     model: x-ai/grok-4
+    #     max_completion_tokens: 8192
+    #     temperature: 0.5
+    #     base_url: https://openrouter.ai/api/v1
+
+output_path: /app/LRG/results/e2e/update_llm
+batch_size: 2
+device: "3"

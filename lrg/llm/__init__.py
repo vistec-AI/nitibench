@@ -7,7 +7,8 @@ MAP_MODEL = {"gpt": (OpenAIConfig, OpenAIModel),
              "gemini": (GeminiConfig, GeminiModel),
              "o1": (OpenAIConfig, OpenAIModel),
              "aisingapore/gemma2": (OpenAIConfig, OpenAIModel),
-             "typhoon": (OpenAIConfig, OpenAIModel)}
+             "typhoon": (OpenAIConfig, OpenAIModel),
+             "x": (OpenAIConfig, OpenAIModel)}
 
 def init_llm(config: Dict):
     

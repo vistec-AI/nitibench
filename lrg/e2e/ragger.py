@@ -1,7 +1,7 @@
 from llama_index.core.base.base_retriever import BaseRetriever
 from typing import List, Dict, Any, Optional, Union
 
-from ..llm import GeminiModel, OpenAIModel, ClaudeModel
+from ..llm import GeminiModel, OpenAIModel, ClaudeModel, MAP_MODEL
 from ..data import EvalDataset
 from ..prompting import PromptManager
 from ..augmenter import NitiLinkAugmenter
@@ -41,7 +41,7 @@ class Ragger(object):
         #Create node map for easy access
         self.id_to_node = {n.id_: n for n in self.dataset.text_nodes}
         self.model_name = self.llm.model_name.split("-")[0]
-        assert self.model_name in ["gemini", "claude", "gpt", "o1", "typhoon"], "Unrecognized model name: {}".format(self.model_name)
+        assert self.model_name in MAP_MODEL, "Unrecognized model name: {}".format(self.model_name)
         
         self.strat_name = self.dataset.strat_name
         self.max_retries = max_retries
@@ -115,14 +115,12 @@ class Ragger(object):
             
         formatted_prompt = self.prompt_manager.get_formatted_prompt(query=augmented_query, task=task, dataset=dataset_name, model=self.model_name)
 
-        if name == "gemini":
-            structure = self.prompt_manager.response_structure["response"][2]
-        elif name == "gpt" or name == "o1":
-            structure = self.prompt_manager.response_structure["response"][1]
+        if name == "claude":
+            structure = self.prompt_manager.response_structure["response"][0]
         elif name == "typhoon":
             structure = None
         else:
-            structure = self.prompt_manager.response_structure["response"][0]
+            structure = self.prompt_manager.response_structure["response"][1]
             
         
         

@@ -1,0 +1,13 @@
+chunk_node_path: /app/LRG/chunking/553_50_line/nodes.json
+golden_node_path: /app/LRG/chunking/golden/nodes.json
+
+result_dir: /app/LRG/results/e2e/update_llm/golden-human-finetuned-bge-m3-no-ref-grok-4
+
+llm_config:
+  model: gpt-4o-2024-08-06
+  # model: gpt-4o-mini-2024-07-18
+  max_completion_tokens: 2048
+  temperature: 0.3 #Default
+      
+eval_retrieval: True
+batch_size: 50

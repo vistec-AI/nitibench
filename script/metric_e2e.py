@@ -4,6 +4,9 @@ import asyncio
 import os
 import yaml
 import json
+from dotenv import load_dotenv
+
+load_dotenv("/app/LRG/setting.env")
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 sys.path.append("/app/LRG")
@@ -12,7 +15,7 @@ import pandas as pd
 from lrg.data import EvalDataset
 from lrg.retrieval.retrieval_init import init_retriever
 from lrg.prompting import PromptManager
-from lrg.llm import init_llm
+from lrg.llm import init_llm, MAP_MODEL
 from lrg.e2e import Ragger
 
 from tqdm import tqdm
@@ -146,14 +149,11 @@ async def calc_metric(row: pd.Series,
     formatted_prompts = pm.get_formatted_prompt(query=augmented_query, task=task, dataset=dataset_name, model=model_name)
     
     name = model_name.split("-")[0]
-    if name == "gemini":
-        structure = pm.response_structure[task][2]
-    elif name == "gpt":
-        structure = pm.response_structure[task][1]
-    elif name == "claude":
+    assert name in MAP_MODEL, "Unrecognized model name: {}".format(model_name)
+    if name == "claude":
         structure = pm.response_structure[task][0]
     else:
-        raise ValueError("Unrecognized model name: {}".format(model_name))
+        structure = pm.response_structure[task][1]
     
     #Then, generate the response
     response = await llm.complete(**formatted_prompts, structure=structure)
@@ -245,7 +245,7 @@ async def main(args):
     eval_retrieval = config.get("eval_retrieval", False)
     is_golden_chunk = "golden" in os.path.basename(config["result_dir"])
     model_name = config["llm_config"]["model"]
-    wangchan_e2e_path = os.path.join(config["result_dir"], "wangchan_e2e_metrics.json")
+    # wangchan_e2e_path = os.path.join(config["result_dir"], "wangchan_e2e_metrics.json")
     tax_e2e_path = os.path.join(config["result_dir"], "tax_e2e_metrics.json")
     batch_size = config.get("batch_size", 50)
     
@@ -299,7 +299,7 @@ async def main(args):
     
     #Another thing we want to do is calculate the global metrics for mrr, multimrr, hitrate, multihitrate and recall
     if eval_retrieval:
-        retrieval_result = pd.DataFrame([t["retrieval_result"] for t in tax_e2e_metrics])
+        retrieval_result = pd.DataFrame([t["retrieval_result"] for _, t in tax_e2e_metrics.iterrows()])
         
         for k in retrieval_result.columns:
             if "recall" in k:

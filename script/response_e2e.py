@@ -5,6 +5,9 @@ import os
 import yaml
 import json
 import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv("/app/LRG/setting.env")
 
 if "/app/LRG" not in sys.path:
     sys.path.append("/app/LRG")
@@ -107,10 +110,6 @@ async def evaluate_ragger(ragger: Ragger, golden_retriever: bool = False, batch_
 
         
     torch.cuda.empty_cache()
-    
-    
-    
-    
 
 async def main(args):
     
