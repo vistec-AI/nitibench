@@ -118,6 +118,31 @@ Next, we extend our appreciation to the **research assistants at VISTEC** for th
 Lastly, if you use our code in your research, please cite our work:  
 
 ```bibtex
+@inproceedings{akarajaradwong-etal-2025-nitibench,
+    title = "{N}iti{B}ench: Benchmarking {LLM} Frameworks on {T}hai Legal Question Answering Capabilities",
+    author = "Akarajaradwong, Pawitsapak  and
+      Pothavorn, Pirat  and
+      Chaksangchaichot, Chompakorn  and
+      Tasawong, Panuthep  and
+      Nopparatbundit, Thitiwat  and
+      Pratai, Keerakiat  and
+      Nutanong, Sarana",
+    editor = "Christodoulopoulos, Christos  and
+      Chakraborty, Tanmoy  and
+      Rose, Carolyn  and
+      Peng, Violet",
+    booktitle = "Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing",
+    month = nov,
+    year = "2025",
+    address = "Suzhou, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.emnlp-main.1739/",
+    doi = "10.18653/v1/2025.emnlp-main.1739",
+    pages = "34292--34315",
+    ISBN = "979-8-89176-332-6",
+    abstract = "Large language models (LLMs) show promise in legal question answering (QA), yet Thai legal QA systems face challenges due to limited data and complex legal structures. We introduce NitiBench, a novel benchmark featuring two datasets: (1) NitiBench-CCL, covering Thai financial laws, and (2) NitiBench-Tax, containing Thailand{'}s official tax rulings. Our benchmark also consists of specialized evaluation metrics suited for Thai legal QA. We evaluate retrieval-augmented generation (RAG) and long-context LLM (LCLM) approaches across three key dimensions: (1) the benefits of domain-specific techniques like hierarchy-aware chunking and cross-referencing, (2) comparative performance of RAG components, e.g., retrievers and LLMs, and (3) the potential of long-context LLMs to replace traditional RAG systems. Our results reveal that domain-specific components slightly improve over naive methods. At the same time, existing retrieval models still struggle with complex legal queries, and long-context LLMs have limitations in consistent legal reasoning. Our study highlights current limitations in Thai legal NLP and lays a foundation for future research in this emerging domain."
+}
+
 @misc{akarajaradwong2025nitibenchcomprehensivestudiesllm,
       title={NitiBench: A Comprehensive Studies of LLM Frameworks Capabilities for Thai Legal Question Answering}, 
       author={Pawitsapak Akarajaradwong and Pirat Pothavorn and Chompakorn Chaksangchaichot and Panuthep Tasawong and Thitiwat Nopparatbundit and Sarana Nutanong},
